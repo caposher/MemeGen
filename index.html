@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="css/style.css" />
     <title>Meme Generator</title>
   </head>
-  <body>
+  <body onload="init()">
     <header class="flex justify-center">
       <section class="title main-layout flex justify-space-between">
         <div class="logo flex justify-center item-center">
-          <img src="icons/logo.png" alt="logo" />
+          <img src="img/icons/logo.png" alt="logo" />
         </div>
         <ul class="title-nav flex">
           <li>
@@ -26,7 +26,7 @@
     <section class="header-nav main-layout flex">
       <div class="search">
         <input class="search-input" type="text" placeholder="Enter search keyward" />
-        <img src="icons/search-icon.png" alt="" />
+        <img src="img/icons/search-icon.png" alt="" />
       </div>
       <div class="search-words flex">
         <div><h2>funny</h2></div>
@@ -36,36 +36,51 @@
     </section>
 
     <main class="main-container flex justify-center direction-column">
-      <div class="img-grid main-layout grid">
-        <div class="img1"></div>
-        <div class="img2"></div>
-        <div class="img3"></div>
-        <div class="img1"></div>
-        <div class="img2"></div>
-        <div class="img3"></div>
-        <div class="img1"></div>
-        <div class="img2"></div>
-        <div class="img3"></div>
-        <div class="img1"></div>
-        <div class="img2"></div>
-        <div class="img3"></div>
-        <div class="img1"></div>
-        <div class="img2"></div>
-        <div class="img3"></div>
-        <div class="img1"></div>
-        <div class="img2"></div>
-        <div class="img3"></div>
-        <div class="img1"></div>
-        <div class="img2"></div>
+      <div class="editor-container main-layout flex justify-center">
+        <canvas class="canvas"></canvas>
+        <div class="panel">
+          <input type="text" placeholder="Text Line" oninput="onText(this.value)" />
+          <div class="panel-1 grid">
+            <div class="move-up mouse-react" onclick="onMoveUp()"></div>
+            <div class="move-down mouse-react" onclick="onMoveDown()"></div>
+            <div class="switch-txt mouse-react"></div>
+            <div class="add-txt mouse-react"></div>
+            <div class="delete-txt mouse-react"></div>
+          </div>
+        </div>
       </div>
+      <!-- <div class="img-grid main-layout grid">
+        <div class="img1"></div>
+        <div class="img2"></div>
+        <div class="img3"></div>
+        <div class="img1"></div>
+        <div class="img2"></div>
+        <div class="img3"></div>
+        <div class="img1"></div>
+        <div class="img2"></div>
+        <div class="img3"></div>
+        <div class="img1"></div>
+        <div class="img2"></div>
+        <div class="img3"></div>
+        <div class="img1"></div>
+        <div class="img2"></div>
+        <div class="img3"></div>
+        <div class="img1"></div>
+        <div class="img2"></div>
+        <div class="img3"></div>
+        <div class="img1"></div>
+        <div class="img2"></div>
+      </div> -->
       <footer>
         <div class="footer-content flex direction-column item-center">
-          <img class="logo" src="icons/logo.png" alt="" />
+          <img class="logo" src="img/icons/logo.png" alt="" />
           <p>all rights reserved 2021</p>
         </div>
       </footer>
     </main>
 
+    <script src="js/services/util-service.js"></script>
+    <script src="js/services/meme.service.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

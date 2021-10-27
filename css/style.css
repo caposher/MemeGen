@@ -68,7 +68,7 @@ li:hover > * {
   width: 20px;
 }
 
-/* MAIN */
+/* MAIN GALLERY*/
 
 .img-grid {
   grid-template-columns: repeat(auto-fill, minmax(10px, 170px));
@@ -77,21 +77,21 @@ li:hover > * {
 }
 
 .img1 {
-  background-image: url('../meme-imgs/1.jpg');
+  background-image: url('../img/meme-imgs/1.jpg');
   background-position: center center;
   background-size: cover;
   width: 170px;
   height: 140px;
 }
 .img2 {
-  background-image: url('../meme-imgs/2.jpg');
+  background-image: url('../img/meme-imgs/2.jpg');
   background-position: center center;
   background-size: cover;
   width: 170px;
   height: 140px;
 }
 .img3 {
-  background-image: url('../meme-imgs/3.jpg');
+  background-image: url('../img/meme-imgs/3.jpg');
   background-position: center center;
   background-size: cover;
   width: 170px;
@@ -110,6 +110,49 @@ li:hover > * {
 
 .footer-content p {
   padding-block-end: 75px;
+}
+
+/* MAIN CANVAS */
+.panel-1 {
+  width: 370px;
+  grid-template-columns: 15px 15px repeat(3, 30px);
+  grid-template-rows: 30px;
+  grid-gap: 10px;
+}
+
+.move-up {
+  background-image: url('../img/icons/arrow-up.png');
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.move-down {
+  background-image: url('../img/icons/arrow-down.png');
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.switch-txt {
+  background-image: url('../img/icons/up-and-down-opposite-double-arrows-side-by-side.png');
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.add-txt {
+  background-image: url('../img/icons/add.png');
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.delete-txt {
+  background-image: url('../img/icons/trash.png');
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 /* HELPERS */
@@ -134,4 +177,8 @@ li:hover > * {
 
 .grid {
   display: grid;
+}
+
+.mouse-react {
+  cursor: pointer;
 }
