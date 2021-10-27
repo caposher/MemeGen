@@ -1,6 +1,6 @@
 'use strict';
 const MOVEMENT_STEP = 10;
-const RECT_PADDING = 10;
+const RECT_PADDING = 10; //TODO: need to be dynamic
 let gElCanvas;
 let gCanvas;
 
@@ -16,7 +16,7 @@ function createCanvas() {
   // change canvas size
   gElCanvas = document.querySelector('.canvas');
   gElCanvas.width = window.innerWidth / 2;
-  gElCanvas.height = window.innerHeight / 2;
+  gElCanvas.height = (500 * gElCanvas.width) / 500; //TODO: do dynamic calc
 
   //add image
   gCanvas = gElCanvas.getContext('2d');
