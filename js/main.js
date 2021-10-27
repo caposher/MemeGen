@@ -15,3 +15,16 @@ function onMoveUp() {
 function onMoveDown() {
   moveSelectedDown();
 }
+
+function onAddText() {
+  createTextBox();
+  document.querySelector('.txt-input').focus();
+}
+
+function onDeleteText() {
+  deleteSelected();
+}
+
+function onChangeTextBox() {
+  changeTextBox();
+}

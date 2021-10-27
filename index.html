@@ -39,13 +39,19 @@
       <div class="editor-container main-layout flex justify-center">
         <canvas class="canvas"></canvas>
         <div class="panel">
-          <input type="text" placeholder="Text Line" oninput="onText(this.value)" />
+          <input
+            class="txt-input"
+            type="text"
+            placeholder="Text Line"
+            onfocus="this.value=''"
+            oninput="onText(this.value)"
+          />
           <div class="panel-1 grid">
             <div class="move-up mouse-react" onclick="onMoveUp()"></div>
             <div class="move-down mouse-react" onclick="onMoveDown()"></div>
-            <div class="switch-txt mouse-react"></div>
-            <div class="add-txt mouse-react"></div>
-            <div class="delete-txt mouse-react"></div>
+            <div class="switch-txt mouse-react" onclick="onChangeTextBox()"></div>
+            <div class="add-txt mouse-react" onclick="onAddText()"></div>
+            <div class="delete-txt mouse-react" onclick="onDeleteText()"></div>
           </div>
         </div>
       </div>
