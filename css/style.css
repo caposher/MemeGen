@@ -1,0 +1,137 @@
+/* FONTS */
+@font-face {
+  font-family: montserrat-regular;
+  src: url('../fonts/montserrat/Montserrat-Regular.ttf');
+}
+
+/* BASIC LAYOUT */
+* {
+  box-sizing: border-box;
+}
+html {
+  font-family: montserrat-regular;
+  font-size: 12px;
+  color: white;
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  background-color: #ff7f00;
+}
+
+footer {
+  background-color: #ff7f00;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+li:hover {
+  box-shadow: inset 0 -2px 0 black;
+}
+
+li:hover > * {
+  color: black;
+}
+
+.main-layout {
+  width: calc(100% - 50px);
+}
+
+/* HEADER */
+
+.logo {
+  width: 130px;
+}
+
+.title-nav li > * {
+  line-height: 60px;
+  padding: 10px;
+}
+
+.gallery-link {
+  border-right: 1px solid #8a8a8a;
+}
+
+/* SEARCH */
+.search img {
+  width: 20px;
+}
+
+/* MAIN */
+
+.img-grid {
+  grid-template-columns: repeat(auto-fill, minmax(10px, 170px));
+  grid-auto-rows: repeat(auto-fit, minmax(140px, 140px));
+  grid-gap: 10px;
+}
+
+.img1 {
+  background-image: url('../meme-imgs/1.jpg');
+  background-position: center center;
+  background-size: cover;
+  width: 170px;
+  height: 140px;
+}
+.img2 {
+  background-image: url('../meme-imgs/2.jpg');
+  background-position: center center;
+  background-size: cover;
+  width: 170px;
+  height: 140px;
+}
+.img3 {
+  background-image: url('../meme-imgs/3.jpg');
+  background-position: center center;
+  background-size: cover;
+  width: 170px;
+  height: 140px;
+}
+
+.img-grid {
+  padding: 10px;
+}
+
+/* MAIN FOOTER */
+.footer-content .logo {
+  padding-block-start: 75px;
+  padding-block-end: 5px;
+}
+
+.footer-content p {
+  padding-block-end: 75px;
+}
+
+/* HELPERS */
+.flex {
+  display: flex;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.item-center {
+  align-items: center;
+}
+.direction-column {
+  flex-direction: column;
+}
+
+.grid {
+  display: grid;
+}
