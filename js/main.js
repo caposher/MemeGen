@@ -157,3 +157,8 @@ function onFontColor(color) {
   elFontBtn.style.backgroundColor = color;
   setFontColor(color);
 }
+
+function changeBtnsColor(strockColor, fillColor) {
+  document.querySelector('.stroke-color').style.backgroundColor = strockColor;
+  document.querySelector('.font-color').style.backgroundColor = fillColor;
+}
