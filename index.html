@@ -18,7 +18,7 @@
             <a href="#" class="gallery-link" onclick="renderGallery()">Gallery</a>
           </li>
           <li>
-            <a href="#" class="memes-link">Memes</a>
+            <a href="#" class="memes-link" onclick="renderGallery(true)">Memes</a>
           </li>
         </ul>
       </section>
@@ -52,8 +52,11 @@
             <div class="switch-txt mouse-react" onclick="onChangeTextBox()"></div>
             <div class="add-txt mouse-react" onclick="onAddText()"></div>
             <div class="delete-txt mouse-react" onclick="onDeleteText()"></div>
-            <div class="font-up mouse-react" onclick="onchangeFont(true)"></div>
-            <div class="font-down mouse-react" onclick="onchangeFont(false)"></div>
+            <div class="font-up mouse-react" onclick="onchangeFontSize(true)"></div>
+            <div class="font-down mouse-react" onclick="onchangeFontSize(false)"></div>
+            <div class="left-align mouse-react" onclick="onAlignment('left')"></div>
+            <div class="center-align mouse-react" onclick="onAlignment('center')"></div>
+            <div class="right-align mouse-react" onclick="onAlignment('right')"></div>
 
             <select class="font-family" name="font-family" onchange="onChangeFont(this.value)">
               <option value="impact">Impact</option>
@@ -79,7 +82,9 @@
               />
             </div>
 
-            <a class="download" href="#" onclick="onDownLoad()">Download</a>
+            <a class="save editor-link" href="#" onclick="onSave()">SAVE</a>
+            <a class="share editor-link" href="#" onclick="onShare()">SHARE</a>
+            <a class="download editor-link" href="#" onclick="onDownLoad()">Download</a>
           </div>
         </div>
         <a class="silent-link" href="" download="take-that-shit.jpg"></a>
@@ -114,6 +119,7 @@
       </div>
     </footer>
 
+    <script src="js/services/storage.service.js"></script>
     <script src="js/services/util-service.js"></script>
     <script src="js/services/meme.service.js"></script>
     <script src="js/main.js"></script>

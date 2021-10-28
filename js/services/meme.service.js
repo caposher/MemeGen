@@ -1,11 +1,11 @@
 'use strict';
 const MOVEMENT_STEP = 10;
-const FONT_SIZE_STEP = 10;
+const FONT_SIZE_STEP = 5;
+const STORAGE_KEY = 'memes';
 const RECT_PADDING = 10; //TODO: need to be dynamic
 let gElCanvas;
 let gCanvas;
 let gLastImg;
-let gTxtAlignment = 'center';
 let gIsRenderEnd = true;
 
 // var gKeywords = { happy: 12, 'funny puk': 1 };
@@ -30,34 +30,47 @@ const gImgs = [
   { id: 18, url: 'img/meme-imgs/18.jpg', keywords: [] },
 ];
 
+let gMemes;
 const gMeme = {
   selectedImgId: 1,
   selectedLineIdx: 0,
   lines: [_createMeme()],
 };
 
+init();
+//init-----------------------------------------------------------------------
+function init() {
+  gMemes = loadFromStorage(STORAGE_KEY);
+  if (!gMemes) gMemes = [];
+}
+
 function createCanvas() {
   // change canvas size
   gElCanvas = GetCanvas();
-  gElCanvas.width = 550;
-  gElCanvas.height = 550; //TODO: do dynamic calc
+  gElCanvas.width = 500;
+  gElCanvas.height = 500; //TODO: do dynamic calc
 
-  //add image
   gCanvas = gElCanvas.getContext('2d');
   renderCanvas();
 }
 
-function renderCanvas(doDownload = false) {
+//renders-----------------------------------------------------------------------
+function renderCanvas(showSelector = true, target = '') {
   let image = new Image();
   image.onload = function () {
     gCanvas.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height);
     renderText();
-    if (doDownload) {
+    if (showSelector) {
+      renderSelected();
+    } else if (target === 'download') {
       const elLink = document.querySelector('.silent-link');
       elLink.href = gElCanvas.toDataURL('image/jpag');
       elLink.click();
-    } else {
-      renderSelected();
+    } else if (target === 'share') {
+      uploadImg();
+    } else if (target === 'save') {
+      gMemes.push(gElCanvas.toDataURL('image/jpag'));
+      saveToStorage(STORAGE_KEY, gMemes);
     }
   };
   image.src = getCurrImg();
@@ -70,15 +83,11 @@ function renderText() {
       gCanvas.lineWidth = 2;
       gCanvas.strokeStyle = meme.strokeColor;
       gCanvas.fillStyle = meme.fillColor;
-      gCanvas.textAlign = gTxtAlignment;
+      gCanvas.textAlign = meme.align;
       gCanvas.font = `${meme.size}px ${meme.font}`;
 
-      // debugger;
-      gCanvas.fillText(meme.txt, gElCanvas.width / 2, meme.coordinate.sY + meme.size);
-      gCanvas.strokeText(meme.txt, gElCanvas.width / 2, meme.coordinate.sY + meme.size);
-
-      // gCanvas.fillText(meme.txt, meme.coordinate.sX + RECT_PADDING, meme.coordinate.sY + meme.size);
-      // gCanvas.strokeText(meme.txt, meme.coordinate.sX + RECT_PADDING, meme.coordinate.sY + meme.size);
+      gCanvas.fillText(meme.txt, _textPosition(meme), meme.coordinate.y + meme.size);
+      gCanvas.strokeText(meme.txt, _textPosition(meme), meme.coordinate.y + meme.size);
     });
   }
 }
@@ -86,35 +95,26 @@ function renderText() {
 function renderSelected() {
   const selected = getSelected();
   if (selected) {
-    selected.coordinate.eY = selected.size + RECT_PADDING;
-
-    //if empty text, rectangle size and location will change
+    selected.rectSize.height = selected.size + RECT_PADDING;
+    selected.rectSize.width = gElCanvas.width - 2 * RECT_PADDING;
     if (!selected.txt) {
-      selected.coordinate.eX = gElCanvas.width - 2 * RECT_PADDING;
-
       //set the line in defferent location depending on the order
-      selected.coordinate.sY = _getYAxis();
-      selected.coordinate.sX = RECT_PADDING;
-    } else {
-      let { xStart, xEnd } = _getXAxis();
-      selected.coordinate.sX = xStart;
-      selected.coordinate.eX = xEnd;
-      // selected.coordinate.sX = gCanvas.measureText(selected.txt).width - 2 * RECT_PADDING;
-      // selected.coordinate.eX = gCanvas.measureText(selected.txt).width + 2 * RECT_PADDING;
+      selected.coordinate.y = _getYAxis();
+      selected.coordinate.x = RECT_PADDING;
     }
-
     gCanvas.beginPath();
-    gCanvas.rect(selected.coordinate.sX, selected.coordinate.sY, selected.coordinate.eX, selected.coordinate.eY);
+    gCanvas.rect(selected.coordinate.x, selected.coordinate.y, selected.rectSize.width, selected.rectSize.height);
     gCanvas.strokeStyle = 'white';
     gCanvas.stroke();
   }
 }
 
+//buttons-----------------------------------------------------------------------
+//text box manipulation-----------------------------------
 function moveSelectedUp() {
   const selected = getSelected();
   if (selected) {
-    selected.coordinate.sY -= MOVEMENT_STEP;
-    selected.coordinate.eY -= MOVEMENT_STEP;
+    selected.coordinate.y -= MOVEMENT_STEP;
     renderCanvas();
   }
 }
@@ -122,8 +122,7 @@ function moveSelectedUp() {
 function moveSelectedDown() {
   const selected = getSelected();
   if (selected) {
-    selected.coordinate.sY += MOVEMENT_STEP;
-    selected.coordinate.eY += MOVEMENT_STEP;
+    selected.coordinate.y += MOVEMENT_STEP;
     renderCanvas();
   }
 }
@@ -146,12 +145,18 @@ function changeTextBox() {
   renderCanvas();
 }
 
-function changeFont(isBiggerFont) {
+//text manipulation-----------------------------------
+function changeFontSize(isBiggerFont) {
   if (isBiggerFont) {
     getSelected().size += FONT_SIZE_STEP;
   } else {
     getSelected().size -= FONT_SIZE_STEP;
   }
+  renderCanvas();
+}
+
+function changeAlignment(direction) {
+  getSelected().align = direction;
   renderCanvas();
 }
 
@@ -170,8 +175,16 @@ function setFontColor(color) {
   renderCanvas();
 }
 
-function getImgs() {
-  return gImgs;
+//getters and setters-----------------------------------
+
+function getImgs(isFromStorage = false) {
+  let imgs = gImgs;
+  if (isFromStorage) {
+    imgs = gMemes.map((url, idx) => {
+      return { url: url };
+    });
+  }
+  return imgs;
 }
 
 function setEditorImg(id) {
@@ -179,12 +192,19 @@ function setEditorImg(id) {
 }
 
 function getCurrImg() {
-  // debugger;
   return gImgs.find((img) => img.id === gMeme.selectedImgId).url;
 }
 
+function saveCanvas() {
+  renderCanvas(false, 'save');
+}
+
+function shareCanvas() {
+  renderCanvas(false, 'share');
+}
+
 function downloadCanvas() {
-  renderCanvas(true);
+  renderCanvas(false, 'download');
 }
 
 function getSelected() {
@@ -198,20 +218,61 @@ function setText(txt) {
     renderCanvas();
   }
 }
+
+//share to facebook--------------------------------------------------------------------
+function uploadImg() {
+  const imgDataUrl = gElCanvas.toDataURL('image/jpeg');
+
+  // A function to be called if request succeeds
+  function onSuccess(uploadedImgUrl) {
+    const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl);
+    window.open(
+      `https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`,
+      '_blank'
+    );
+
+    // document.querySelector('.share-container').innerHTML = `
+    //   <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+    //      Share
+    //   </a>`;
+  }
+  doUploadImg(imgDataUrl, onSuccess);
+}
+
+function doUploadImg(imgDataUrl, onSuccess) {
+  const formData = new FormData();
+  formData.append('img', imgDataUrl);
+
+  fetch('//ca-upload.com/here/upload.php', {
+    method: 'POST',
+    body: formData,
+  })
+    .then((res) => res.text())
+    .then((url) => {
+      console.log('Got back live url:', url);
+      onSuccess(url);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
 //private functions --------------------------------------------------------------------
 function _createMeme() {
   return {
     txt: '',
     size: 50,
-    align: 'left',
+    align: 'center',
     strokeColor: 'black',
     fillColor: 'white',
     font: 'Impact',
     coordinate: {
-      sX: 0,
-      sY: 0,
-      eX: 0,
-      eY: 0,
+      x: 0,
+      y: 0,
+    },
+    rectSize: {
+      width: 0,
+      height: 0,
     },
   };
 }
@@ -232,20 +293,18 @@ function _getYAxis() {
   return YAxis;
 }
 
-function _getXAxis() {
-  let selected = getSelected();
-  let xStart;
-  let xEnd;
-  switch (gTxtAlignment) {
+function _textPosition(meme) {
+  let textPosX;
+  switch (meme.align) {
     case 'center':
-      xStart = gElCanvas.width / 2 - gCanvas.measureText(selected.txt).width / 2 - RECT_PADDING;
-      xEnd = gCanvas.measureText(selected.txt).width + 2 * RECT_PADDING;
-      // debugger;
+      textPosX = gElCanvas.width / 2;
       break;
     case 'left':
+      textPosX = meme.coordinate.x + RECT_PADDING;
       break;
     case 'right':
+      textPosX = meme.coordinate.x + meme.rectSize.width - RECT_PADDING;
       break;
   }
-  return { xStart, xEnd };
+  return textPosX;
 }
