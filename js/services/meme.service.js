@@ -1,5 +1,6 @@
 'use strict';
 const MOVEMENT_STEP = 10;
+const FONT_SIZE_STEP = 10;
 const RECT_PADDING = 10; //TODO: need to be dynamic
 let gElCanvas;
 let gCanvas;
@@ -67,10 +68,10 @@ function renderText() {
     gMeme.lines.forEach((meme) => {
       gCanvas.beginPath();
       gCanvas.lineWidth = 2;
-      gCanvas.strokeStyle = 'black';
-      gCanvas.fillStyle = 'white';
+      gCanvas.strokeStyle = meme.strokeColor;
+      gCanvas.fillStyle = meme.fillColor;
       gCanvas.textAlign = gTxtAlignment;
-      gCanvas.font = `${meme.size}px impact`;
+      gCanvas.font = `${meme.size}px ${meme.font}`;
 
       // debugger;
       gCanvas.fillText(meme.txt, gElCanvas.width / 2, meme.coordinate.sY + meme.size);
@@ -145,6 +146,30 @@ function changeTextBox() {
   renderCanvas();
 }
 
+function changeFont(isBiggerFont) {
+  if (isBiggerFont) {
+    getSelected().size += FONT_SIZE_STEP;
+  } else {
+    getSelected().size -= FONT_SIZE_STEP;
+  }
+  renderCanvas();
+}
+
+function changeFontType(font) {
+  getSelected().font = font;
+  renderCanvas();
+}
+
+function setStrokeColor(color) {
+  getSelected().strokeColor = color;
+  renderCanvas();
+}
+
+function setFontColor(color) {
+  getSelected().fillColor = color;
+  renderCanvas();
+}
+
 function getImgs() {
   return gImgs;
 }
@@ -179,7 +204,9 @@ function _createMeme() {
     txt: '',
     size: 50,
     align: 'left',
-    color: 'red',
+    strokeColor: 'black',
+    fillColor: 'white',
+    font: 'Impact',
     coordinate: {
       sX: 0,
       sY: 0,

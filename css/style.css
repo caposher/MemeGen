@@ -43,6 +43,10 @@ a {
   color: white;
 }
 
+input {
+  padding: 0;
+}
+
 li:hover {
   box-shadow: inset 0 -2px 0 black;
 }
@@ -112,16 +116,16 @@ li:hover > * {
 .panel {
   width: 100%;
   grid-template-columns: repeat(7, 40px);
-  grid-template-rows: repeat(7, 40px);
+  grid-template-rows: repeat(2, 40px) 10px repeat(4, 40px);
   grid-gap: 10px;
   grid-template-areas:
-    'input input input input  input input    input       '
-    '.     up    down  switch add   remove   .           '
-    '.     .     .     .      .     .        .           '
-    '.     .     .     .      .     .        .           '
-    '.     .     .     .      .     .        .           '
-    '.     .     .     .      .     .        .           '
-    '.     .     .     .      download2     download download    ';
+    'input input       input       input       input   input    input       '
+    '.     up          down        switch      add     remove   .           '
+    '.     .           .           .           .       .        .           '
+    '.     font-up     font-down   .           .       .        .           '
+    '.     font-family font-family font-family s-color f-color  .           '
+    '.     .           .           .           .       .        .           '
+    '.     .           .           .           .       download download    ';
   justify-content: center;
 }
 
@@ -136,6 +140,7 @@ li:hover > * {
 }
 .txt-input {
   grid-area: input;
+  padding-inline-start: 10px;
 }
 
 .move-up {
@@ -161,6 +166,37 @@ li:hover > * {
 .delete-txt {
   grid-area: remove;
   background-image: url('../img/icons/trash.png');
+}
+
+.font-up {
+  grid-area: font-up;
+  background-image: url('../img/icons/increase-font.png');
+}
+
+.font-down {
+  grid-area: font-down;
+  background-image: url('../img/icons/decrease-font.png');
+}
+
+.font-family {
+  grid-area: font-family;
+  padding-inline-start: 10px;
+}
+
+.stroke-color {
+  grid-area: s-color;
+  background-image: url('../img/icons/text-stroke.png');
+}
+
+.font-color {
+  grid-area: f-color;
+  background-image: url('../img/icons/paint-board-and-brush.png');
+}
+
+.color-input {
+  width: 3em;
+  height: 3em;
+  opacity: 0;
 }
 
 .download {

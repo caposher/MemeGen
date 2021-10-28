@@ -84,3 +84,23 @@ function onChangeTextBox() {
 function onDownLoad() {
   downloadCanvas();
 }
+
+function onchangeFont(isBiggerFont) {
+  changeFont(isBiggerFont);
+}
+
+function onChangeFont(font) {
+  changeFontType(font);
+}
+
+function onStrokeColor(color) {
+  const elStrokeBtn = document.querySelector('.stroke-color');
+  elStrokeBtn.style.backgroundColor = color;
+  setStrokeColor(color);
+}
+
+function onFontColor(color) {
+  const elFontBtn = document.querySelector('.font-color');
+  elFontBtn.style.backgroundColor = color;
+  setFontColor(color);
+}

@@ -52,6 +52,33 @@
             <div class="switch-txt mouse-react" onclick="onChangeTextBox()"></div>
             <div class="add-txt mouse-react" onclick="onAddText()"></div>
             <div class="delete-txt mouse-react" onclick="onDeleteText()"></div>
+            <div class="font-up mouse-react" onclick="onchangeFont(true)"></div>
+            <div class="font-down mouse-react" onclick="onchangeFont(false)"></div>
+
+            <select class="font-family" name="font-family" onchange="onChangeFont(this.value)">
+              <option value="impact">Impact</option>
+              <option value="courier">Courier</option>
+              <option value="serif">Serif</option>
+              <option value="monospace">Monospace</option>
+              <option value="cursive">Cursive</option>
+            </select>
+            <div class="stroke-color">
+              <input
+                class="color-input mouse-react"
+                type="color"
+                name="stroke-color"
+                onchange="onStrokeColor(this.value)"
+              />
+            </div>
+            <div class="font-color">
+              <input
+                class="color-input mouse-react"
+                type="color"
+                name="font-color"
+                onchange="onFontColor(this.value)"
+              />
+            </div>
+
             <a class="download" href="#" onclick="onDownLoad()">Download</a>
           </div>
         </div>
