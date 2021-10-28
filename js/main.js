@@ -83,6 +83,10 @@ function renderEditor() {
       <a class="save editor-link" href="#" onclick="onSave()">SAVE</a>
       <a class="share editor-link" href="#" onclick="onShare()">SHARE</a>
       <a class="download editor-link" href="#" onclick="onDownLoad()">Download</a>
+    </div>
+    </div>
+    <a class="silent-link" href="" download="take-that-shit.jpg"></a>
+  </div>
   `;
 
   elMain.innerHTML = strHTML;
