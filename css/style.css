@@ -45,6 +45,11 @@ a {
 
 input {
   padding: 0;
+  border: none;
+}
+
+select {
+  border: none;
 }
 
 li:hover {
@@ -75,9 +80,9 @@ li:hover > * {
 }
 
 /* SEARCH */
-.search img {
+/* .search img {
   width: 20px;
-}
+} */
 
 /* MAIN GALLERY*/
 
@@ -87,6 +92,7 @@ li:hover > * {
   grid-gap: 10px;
   padding: 10px 0px;
 }
+
 .img {
   background-image: url('../img/meme-imgs/1.jpg');
   background-position: center center;
@@ -95,6 +101,13 @@ li:hover > * {
   grid-row: span 1;
 }
 
+.meme {
+  background-position: center center;
+  background-size: cover;
+  grid-column: span 1;
+  grid-row: span 1;
+  width: 15em;
+}
 /* MAIN FOOTER */
 .footer-content .logo {
   padding-block-start: 75px;
@@ -119,13 +132,13 @@ li:hover > * {
   grid-template-rows: repeat(2, 40px) 10px repeat(4, 40px);
   grid-gap: 10px;
   grid-template-areas:
-    'input input       input       input       input   input    input       '
-    '.     up          down        switch      add     remove   .           '
-    '.     .           .           .           .       .        .           '
-    '.     font-up     font-down   .           .       .        .           '
-    '.     font-family font-family font-family s-color f-color  .           '
-    '.     .           .           .           .       .        .           '
-    '.     .           .           .           .       download download    ';
+    'input input       input       input       input        input       input       '
+    '.     up          down        switch      add          remove      .           '
+    '.     .           .           .           .            .           .           '
+    '.     font-up     font-down   left-align  center-align right-align .           '
+    '.     font-family font-family font-family s-color      f-color     .           '
+    '.     .           .           .           .            .           .           '
+    'save  save        share       share       share        download    download    ';
   justify-content: center;
 }
 
@@ -178,6 +191,19 @@ li:hover > * {
   background-image: url('../img/icons/decrease-font.png');
 }
 
+.left-align {
+  grid-area: left-align;
+  background-image: url('../img/icons/align-to-left.png');
+}
+.right-align {
+  grid-area: right-align;
+  background-image: url('../img/icons/align-to-right.png');
+}
+.center-align {
+  grid-area: center-align;
+  background-image: url('../img/icons/center-text-alignment.png');
+}
+
 .font-family {
   grid-area: font-family;
   padding-inline-start: 10px;
@@ -199,13 +225,23 @@ li:hover > * {
   opacity: 0;
 }
 
-.download {
+.editor-link {
   display: flex;
   justify-content: center;
   align-self: center;
   padding: 10px 0px;
-  grid-area: download;
   background-color: #ff7f00;
+}
+.save {
+  grid-area: save;
+}
+
+.share {
+  grid-area: share;
+}
+
+.download {
+  grid-area: download;
 }
 
 /* HELPERS */
