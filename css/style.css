@@ -16,14 +16,11 @@ html {
 
 body {
   margin: 0;
+  background-color: rgb(227, 227, 227);
 }
 
 header {
   background-color: #ff7f00;
-}
-
-main {
-  background-color: rgb(227, 227, 227);
 }
 
 footer {
