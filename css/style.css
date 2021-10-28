@@ -22,8 +22,15 @@ header {
   background-color: #ff7f00;
 }
 
+main {
+  background-color: rgb(227, 227, 227);
+}
+
 footer {
   background-color: #ff7f00;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 ul {
@@ -71,35 +78,17 @@ li:hover > * {
 /* MAIN GALLERY*/
 
 .img-grid {
-  grid-template-columns: repeat(auto-fill, minmax(10px, 170px));
-  grid-auto-rows: repeat(auto-fit, minmax(140px, 140px));
+  grid-template-columns: repeat(6, auto);
+  grid-auto-rows: 15em;
   grid-gap: 10px;
+  padding: 10px 0px;
 }
-
-.img1 {
+.img {
   background-image: url('../img/meme-imgs/1.jpg');
   background-position: center center;
   background-size: cover;
-  width: 170px;
-  height: 140px;
-}
-.img2 {
-  background-image: url('../img/meme-imgs/2.jpg');
-  background-position: center center;
-  background-size: cover;
-  width: 170px;
-  height: 140px;
-}
-.img3 {
-  background-image: url('../img/meme-imgs/3.jpg');
-  background-position: center center;
-  background-size: cover;
-  width: 170px;
-  height: 140px;
-}
-
-.img-grid {
-  padding: 10px;
+  grid-column: span 1;
+  grid-row: span 1;
 }
 
 /* MAIN FOOTER */
@@ -113,46 +102,60 @@ li:hover > * {
 }
 
 /* MAIN CANVAS */
-.panel-1 {
-  width: 370px;
-  grid-template-columns: 15px 15px repeat(3, 30px);
-  grid-template-rows: 30px;
+.editor-container {
+  /* margin-block-start: 15px; */
+  margin: 14px 0;
+  /* justify-content: space-evenly; */
+  gap: 100px;
+}
+
+.panel {
+  width: 100%;
+  grid-template-columns: repeat(7, 40px);
+  grid-template-rows: repeat(7, 40px);
   grid-gap: 10px;
+  grid-template-areas:
+    'input input input input  input input  input'
+    '.     up    down  switch add   remove .    ';
+  justify-content: center;
+}
+
+.panel > * {
+  border-radius: 10px;
+  background-color: white;
+}
+.panel > *:not(:first-child) {
+  background-position: center center;
+  background-size: 20px;
+  background-repeat: no-repeat;
+}
+.txt-input {
+  grid-area: input;
 }
 
 .move-up {
+  grid-area: up;
   background-image: url('../img/icons/arrow-up.png');
-  background-position: center center;
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 
 .move-down {
+  grid-area: down;
   background-image: url('../img/icons/arrow-down.png');
-  background-position: center center;
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 
 .switch-txt {
+  grid-area: switch;
   background-image: url('../img/icons/up-and-down-opposite-double-arrows-side-by-side.png');
-  background-position: center center;
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 
 .add-txt {
+  grid-area: add;
   background-image: url('../img/icons/add.png');
-  background-position: center center;
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 
 .delete-txt {
+  grid-area: remove;
   background-image: url('../img/icons/trash.png');
-  background-position: center center;
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 
 /* HELPERS */
@@ -181,4 +184,9 @@ li:hover > * {
 
 .mouse-react {
   cursor: pointer;
+}
+
+.grid-one-cell {
+  grid-column: span 1;
+  grid-row: span 1;
 }

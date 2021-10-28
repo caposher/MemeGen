@@ -15,7 +15,7 @@
         </div>
         <ul class="title-nav flex">
           <li>
-            <a href="#" class="gallery-link">Gallery</a>
+            <a href="#" class="gallery-link" onclick="renderGallery()">Gallery</a>
           </li>
           <li>
             <a href="#" class="memes-link">Memes</a>
@@ -35,18 +35,18 @@
       </div>
     </section> -->
 
-    <main class="main-container flex justify-center direction-column">
-      <div class="editor-container main-layout flex justify-center">
+    <main class="main-container flex justify-center direction-column item-center">
+      <div class="editor-container main-layout flex">
         <canvas class="canvas"></canvas>
-        <div class="panel">
-          <input
-            class="txt-input"
-            type="text"
-            placeholder="Text Line"
-            onfocus="this.value=''"
-            oninput="onText(this.value)"
-          />
-          <div class="panel-1 grid">
+        <div class="panel-container flex">
+          <div class="panel grid">
+            <input
+              class="txt-input"
+              type="text"
+              placeholder="Text Line"
+              onfocus="this.value=''"
+              oninput="onText(this.value)"
+            />
             <div class="move-up mouse-react" onclick="onMoveUp()"></div>
             <div class="move-down mouse-react" onclick="onMoveDown()"></div>
             <div class="switch-txt mouse-react" onclick="onChangeTextBox()"></div>
@@ -54,36 +54,36 @@
             <div class="delete-txt mouse-react" onclick="onDeleteText()"></div>
           </div>
         </div>
-      </div>
+
       <!-- <div class="img-grid main-layout grid">
-        <div class="img1"></div>
-        <div class="img2"></div>
-        <div class="img3"></div>
-        <div class="img1"></div>
-        <div class="img2"></div>
-        <div class="img3"></div>
-        <div class="img1"></div>
-        <div class="img2"></div>
-        <div class="img3"></div>
-        <div class="img1"></div>
-        <div class="img2"></div>
-        <div class="img3"></div>
-        <div class="img1"></div>
-        <div class="img2"></div>
-        <div class="img3"></div>
-        <div class="img1"></div>
-        <div class="img2"></div>
-        <div class="img3"></div>
-        <div class="img1"></div>
-        <div class="img2"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
+        <div class="img"></div>
       </div> -->
-      <footer>
-        <div class="footer-content flex direction-column item-center">
-          <img class="logo" src="img/icons/logo.png" alt="" />
-          <p>all rights reserved 2021</p>
-        </div>
-      </footer>
     </main>
+    <footer>
+      <div class="footer-content flex direction-column item-center">
+        <img class="logo" src="img/icons/logo.png" alt="" />
+        <p>all rights reserved 2021</p>
+      </div>
+    </footer>
 
     <script src="js/services/util-service.js"></script>
     <script src="js/services/meme.service.js"></script>
