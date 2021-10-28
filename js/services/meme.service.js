@@ -3,10 +3,12 @@ const MOVEMENT_STEP = 10;
 const RECT_PADDING = 10; //TODO: need to be dynamic
 let gElCanvas;
 let gCanvas;
+let gLastImg;
 let gTxtAlignment = 'center';
+let gIsRenderEnd = true;
 
 // var gKeywords = { happy: 12, 'funny puk': 1 };
-var gImgs = [
+const gImgs = [
   { id: 1, url: 'img/meme-imgs/1.jpg', keywords: [] },
   { id: 2, url: 'img/meme-imgs/2.jpg', keywords: [] },
   { id: 3, url: 'img/meme-imgs/3.jpg', keywords: [] },
@@ -27,7 +29,7 @@ var gImgs = [
   { id: 18, url: 'img/meme-imgs/18.jpg', keywords: [] },
 ];
 
-var gMeme = {
+const gMeme = {
   selectedImgId: 1,
   selectedLineIdx: 0,
   lines: [_createMeme()],
@@ -44,12 +46,18 @@ function createCanvas() {
   renderCanvas();
 }
 
-function renderCanvas() {
+function renderCanvas(doDownload = false) {
   let image = new Image();
   image.onload = function () {
     gCanvas.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height);
     renderText();
-    renderSelected();
+    if (doDownload) {
+      const elLink = document.querySelector('.silent-link');
+      elLink.href = gElCanvas.toDataURL('image/jpag');
+      elLink.click();
+    } else {
+      renderSelected();
+    }
   };
   image.src = getCurrImg();
 }
@@ -148,6 +156,10 @@ function setEditorImg(id) {
 function getCurrImg() {
   // debugger;
   return gImgs.find((img) => img.id === gMeme.selectedImgId).url;
+}
+
+function downloadCanvas() {
+  renderCanvas(true);
 }
 
 function getSelected() {

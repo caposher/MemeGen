@@ -80,3 +80,7 @@ function onDeleteText() {
 function onChangeTextBox() {
   changeTextBox();
 }
+
+function onDownLoad() {
+  downloadCanvas();
+}
