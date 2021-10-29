@@ -42,7 +42,6 @@ function renderEditor() {
         class="txt-input"
         type="text"
         placeholder="Text Line"
-        onfocus="this.value=''"
         oninput="onText(this.value)"
       />
       <div class="move-up mouse-react" onclick="onMoveUp()"></div>
@@ -158,7 +157,8 @@ function onFontColor(color) {
   setFontColor(color);
 }
 
-function changeBtnsColor(strockColor, fillColor) {
+function chagnePanelInfo(strockColor, fillColor, txt = '') {
   document.querySelector('.stroke-color').style.backgroundColor = strockColor;
   document.querySelector('.font-color').style.backgroundColor = fillColor;
+  document.querySelector('.txt-input').value = txt;
 }

@@ -130,7 +130,7 @@ function moveSelectedDown() {
 function createTextBox() {
   gMeme.selectedLineIdx = gMeme.lines.length;
   gMeme.lines.push(_createMeme());
-  changeBtnsColor('black', 'white');
+  chagnePanelInfo('black', 'white');
   renderCanvas();
 }
 
@@ -144,7 +144,7 @@ function changeTextBox() {
   gMeme.selectedLineIdx++;
   gMeme.selectedLineIdx %= gMeme.lines.length;
   const selected = getSelected();
-  changeBtnsColor(selected.strokeColor, selected.fillColor);
+  chagnePanelInfo(selected.strokeColor, selected.fillColor, selected.txt);
   renderCanvas();
 }
 
